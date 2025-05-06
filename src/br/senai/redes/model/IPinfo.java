@@ -7,6 +7,7 @@ public class IPinfo {
 	private String IP;
 	private int cidr;
 	private int hosts;
+	private int subRedes;
 	private String classeIP;
 	private String mascaraDecimal = "";
 	private String mascaraBinario = "";
@@ -28,7 +29,7 @@ public class IPinfo {
 	
 	// Define a classe de ip de acordo com o primeiro octeto
 	
-	public void classeIP() {
+	public String classeIP() {
 		
 		int primeiroOcteto = Integer.valueOf(octetos[0]);
 
@@ -41,11 +42,12 @@ public class IPinfo {
 		} else if (primeiroOcteto > 192 && primeiroOcteto < 223) {
 			classeIP = "Classe C";
 		}
+		return classeIP;
 	}
 	
 	// Define a mascara em padrão binario
 	
-	public void binario() {
+	public String binario() {
 		int contador = 0;
 		int octeto = 0;
 		while (contador < cidr) {
@@ -71,11 +73,12 @@ public class IPinfo {
 			}
 		}
 		}
+		return mascaraBinario;
 	}
 	
 	// Transformando mascara em decimal
 	
-	public void decimal() {
+	public String decimal() {
 		
 		String[] splitBinario = mascaraBinario.split("\\.");
 		
@@ -133,26 +136,71 @@ public class IPinfo {
 			}
 			
 		}
-		
+		return mascaraDecimal;
 	}
 	
 	// Calculando ips disponiveis na rede
 	
-	public void calculaHosts() {
+	public int hosts() {
 		
 		hosts = 32 - cidr;
-			this.hosts = (int) Math.pow(2, hosts)- 2;
-		
+		this.hosts = (int) Math.pow(2, hosts)- 2;
+		return this.hosts;
+			
 	}
 	
-	public void resultados() {
-		System.out.println("Retorno de dados do IP");
-		System.out.println("IP: " + IP);
-		System.out.println("Classe do IP: " + classeIP);
-		System.out.println("Mascara em binario: " + mascaraBinario);
-		System.out.println("Mascara em decimal: " + mascaraDecimal);
-		System.out.println("IP's disponiveis por rede: " + hosts);
+	public int subRedes() {
+		String binarioSemPonto = "";
+		String[] splitBinario = mascaraBinario.split("\\.");
+		for (int i = 0; i < splitBinario.length; i++) {
+			binarioSemPonto += splitBinario[i];
+		}
+		int bits = 0;
+		String[] splitBinarioSemPonto = binarioSemPonto.split("");
+		for (int i = 0; i < splitBinarioSemPonto.length; i++) {
+			if (splitBinarioSemPonto[i].equals("1")) {
+				bits++;
+				
+			}
+			
+		}
+		
+		int n = 0;
+				
+		if (classeIP.equals("Classe A")) {
+			n = bits - 8;
+			subRedes = (int) Math.pow(2, n);
+		} else if (classeIP.equals("Classe B")) {
+			n = bits - 16;
+			subRedes = (int) Math.pow(2, n);
+		} else if (classeIP.equals("Classe C")) {
+			n = bits - 24;
+			subRedes = (int) Math.pow(2, n);
+		}
+		
+		return subRedes;
+	}
+	
+	public String[] resultados() {
+		
+		String[] resultado = new String[6];
+		
+		resultado[0] = "IP: " + IP;
+		resultado[1] = "Classe do IP: " + classeIP();
+		resultado[2] = "Mascara em binario: " + binario();
+		resultado[3] = "Mascara em decimal: " + decimal();
+		resultado[4] = "IP's disponiveis por rede: " + hosts();
+		resultado[5] = "Numero de sub-redes: " + subRedes();
+		
+		return resultado;
+		
+//		System.out.println("Retorno de dados do IP");
+//		System.out.println("IP: " + IP);
+//		System.out.println("Classe do IP: " + classeIP());
+//		System.out.println("Mascara em binario: " + binario());
+//		System.out.println("Mascara em decimal: " + decimal());
+//		System.out.println("IP's disponiveis por rede: " + hosts());
 	}
 	
 }
-	
+	 
