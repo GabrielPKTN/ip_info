@@ -90,7 +90,6 @@ public class MostrarResultados {
 					String[] IPinfoResult = ip.resultados();
 					listInfoIP.setListData(IPinfoResult);
 					
-					textIP.setText(null);
 					
 				} catch (ArrayIndexOutOfBoundsException exception) {
 					

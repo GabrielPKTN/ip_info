@@ -68,7 +68,7 @@ public class IPinfo {
 				
 				if (octeto == 8 && mascaraBinario.length() < 35) {
 					mascaraBinario += ".";
-					octeto = 1;
+					octeto = 0;
 				}
 			}
 		}
