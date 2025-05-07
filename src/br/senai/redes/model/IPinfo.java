@@ -24,7 +24,7 @@ public class IPinfo {
 		String[] splitIP = IP.split("/");
 		cidr = Integer.valueOf(splitIP[1]);
 		octetos = splitIP[0].split("\\.");
-		if (octetos.length <= 3) {
+		if (octetos.length != 4) {
 			octetos[0] = "erro";
 		}
 			
@@ -205,26 +205,39 @@ public class IPinfo {
 		return subRedes;
 	}
 	
-	public void resultadosConsole() {
-		System.out.println("Retorno de dados do IP");
-		System.out.println("IP: " + IP);
-		System.out.println("Classe do IP: " + defineClasseIP());
-		System.out.println("Mascara em binario: " + converteBinario());
-		System.out.println("Mascara em decimal: " + converteDecimal());
-		System.out.println("IP's disponiveis por rede: " + calculaHosts());
-		System.out.println("Numero de sub-redes: " + calculaSubRedes());
-	}
+//	public void resultadosConsole() {
+//		System.out.println("Retorno de dados do IP");
+//		System.out.println("IP: " + IP);
+//		System.out.println("Classe do IP: " + defineClasseIP());
+//		System.out.println("Mascara em binario: " + converteBinario());
+//		System.out.println("Mascara em decimal: " + converteDecimal());
+//		System.out.println("IP's disponiveis por rede: " + calculaHosts());
+//		System.out.println("Numero de sub-redes: " + calculaSubRedes());
+//	}
 	
 	public String[] resultados() {
-		resultadosConsole();
+//		resultadosConsole();
 		String[] resultado = new String[6];
 		
 		resultado[0] = "IP: " + IP;
 		resultado[1] = "Classe do IP: " + defineClasseIP();
-		resultado[2] = "Mascara em binario: " + converteBinario();
-		resultado[3] = "Mascara em decimal: " + converteDecimal();
-		resultado[4] = "IP's disponiveis por rede: " + calculaHosts();
-		resultado[5] = "Numero de sub-redes: " + calculaSubRedes();
+		if (classeIP == "Classe D (Multicast)" || classeIP == "Classe E (Reservada)") {
+			
+			resultado[2] = "Mascara em binario: IP´s de classe D ou E não possuem máscara.";
+			resultado[3] = "Mascara em decimal: IP´s de classe D ou E não possuem máscara.";
+			resultado[4] = "IP's disponiveis por rede: Não aplicável";
+			resultado[5] = "Numero de sub-redes: Não possui";
+			
+			
+		} else {
+			
+			resultado[2] = "Mascara em binario: " + converteBinario();
+			resultado[3] = "Mascara em decimal: " + converteDecimal();
+			resultado[4] = "IP's disponiveis por rede: " + calculaHosts();
+			resultado[5] = "Numero de sub-redes: " + calculaSubRedes();
+			
+		}
+		
 			
 		return resultado;
 	}

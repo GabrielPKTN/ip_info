@@ -1,7 +1,7 @@
 package br.senai.redes;
 
 import br.senai.redes.gui.MostrarResultados;
-import br.senai.redes.model.IPinfo;
+
 
 public class Main {
 
