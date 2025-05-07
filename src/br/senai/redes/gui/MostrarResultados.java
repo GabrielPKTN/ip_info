@@ -83,9 +83,8 @@ public class MostrarResultados {
 					String ipTextField = textIP.getText();
 					
 					IPinfo ip = new IPinfo();
-					
 					ip.setIP(ipTextField);
-					ip.splitIP();
+					ip.separaIP();					
 					
 					String[] IPinfoResult = ip.resultados();
 					listInfoIP.setListData(IPinfoResult);
@@ -101,6 +100,19 @@ public class MostrarResultados {
 					listInfoIP.setVisible(false);
 					labelMensagemErro.setVisible(true);
 					
+				} catch (Exception e2) {
+					
+					// O printStackTrace vai printar todo tipo de código que for diferente
+					// do primeiro erro do catch.
+					e2.printStackTrace();
+					
+					String[] nullResultado = new String[0];
+					listInfoIP.setListData(nullResultado);
+					
+					textIP.setText(null);
+					
+					listInfoIP.setVisible(false);
+					labelMensagemErro.setVisible(true);
 				}
 			}
 		});
