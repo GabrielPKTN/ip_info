@@ -25,7 +25,7 @@ public class IPinfo {
 		cidr = Integer.valueOf(splitIP[1]);
 		octetos = splitIP[0].split("\\.");
 		if (octetos.length != 4) {
-			octetos[0] = "erro";
+			octetos[0] = "Formato de IP invalido.";
 		}
 			
 	}
@@ -161,20 +161,6 @@ public class IPinfo {
 	}
 	
 	public int calculaSubRedes() {
-//		String binarioSemPonto = "";
-//		String[] splitBinario = mascaraBinario.split("\\.");
-//		for (int i = 0; i < splitBinario.length; i++) {
-//			binarioSemPonto += splitBinario[i];
-//		}
-//		int bits = 0;
-//		String[] splitBinarioSemPonto = binarioSemPonto.split("");
-//		for (int i = 0; i < splitBinarioSemPonto.length; i++) {
-//			if (splitBinarioSemPonto[i].equals("1")) {
-//				bits++;
-//				
-//			}
-//			
-//		}
 		
 		int bits = 0;
 				
@@ -205,18 +191,7 @@ public class IPinfo {
 		return subRedes;
 	}
 	
-//	public void resultadosConsole() {
-//		System.out.println("Retorno de dados do IP");
-//		System.out.println("IP: " + IP);
-//		System.out.println("Classe do IP: " + defineClasseIP());
-//		System.out.println("Mascara em binario: " + converteBinario());
-//		System.out.println("Mascara em decimal: " + converteDecimal());
-//		System.out.println("IP's disponiveis por rede: " + calculaHosts());
-//		System.out.println("Numero de sub-redes: " + calculaSubRedes());
-//	}
-	
 	public String[] resultados() {
-//		resultadosConsole();
 		String[] resultado = new String[6];
 		
 		resultado[0] = "IP: " + IP;
