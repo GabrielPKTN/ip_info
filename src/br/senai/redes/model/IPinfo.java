@@ -183,6 +183,9 @@ public class IPinfo {
 				subRedes = 0;
 			} else {
 				bits = 24 - cidr;
+				if (bits <= 0) {
+					bits = bits * -1;
+				}
 				subRedes = (int) Math.pow(2, bits);
 			}
 			
