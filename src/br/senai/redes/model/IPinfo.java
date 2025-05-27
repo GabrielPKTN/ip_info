@@ -12,6 +12,7 @@ public class IPinfo {
 	private String mascaraDecimal = "";
 	private String mascaraBinario = "";
 	private String[] octetos;
+	private String ipComTresOctetos;
 	
 	public void setIP(String IP) {
 		this.IP = IP;
@@ -194,8 +195,64 @@ public class IPinfo {
 		return subRedes;
 	}
 	
+	//A função abaixo é responsavel por mostrar sub-redes a partir do
+	//cidr 25 
+	
+	public String[] informaIps() {
+		
+		String[] listaSubRedes = new String[subRedes + 1];
+		
+		if (cidr >= 25 || cidr < 31) {
+			
+			ipComTresOctetos = null;
+			
+			int i;
+			for(i = 0; i <= 2; i++) {
+				ipComTresOctetos.concat(octetos[i] + ".");
+				
+			}
+			
+			int quartoOctetoMascaraDecimal;
+			
+			String[] octetosMascaraDecimal = mascaraDecimal.split("\\.");
+			
+			quartoOctetoMascaraDecimal = Integer.valueOf(octetosMascaraDecimal[3]);
+			
+			int intervaloDeSubRede = (quartoOctetoMascaraDecimal - 2) / subRedes;
+			
+			if (cidr >= 25 || cidr <= 32) {
+				
+				while (true) {
+					
+					for (i = 1; i < subRedes; i++) {
+						
+						String ipDaSubRede =  ipComTresOctetos.concat(Integer.toString(quartoOctetoMascaraDecimal - (quartoOctetoMascaraDecimal - 1)));
+//						String ipDe = ipComTresOctetos.concat(Integer.toString() + intervaloDeSubRede));
+						String ipDeBroadcast = ipComTresOctetos.concat(Integer.toString(quartoOctetoMascaraDecimal));
+						
+						listaSubRedes[i] = "IP da sub-rede: " + ipDaSubRede + "De: " + "" + "Até: " + "" + " IP de broadcast: " + ipDeBroadcast;
+						
+					}
+					
+					if (i == subRedes) {
+						break;
+					}
+				}
+			}
+		}
+		
+		return listaSubRedes;
+	}
+	
 	public String[] resultados() {
+		
 		String[] resultado = new String[6];
+		
+		if (cidr >= 25 || cidr < 31) {
+		
+			resultado = new String[6 + subRedes];
+		
+		}
 		
 		resultado[0] = "IP: " + IP;
 		resultado[1] = "Classe do IP: " + defineClasseIP();
@@ -214,8 +271,12 @@ public class IPinfo {
 			resultado[4] = "IP's disponiveis por rede: " + calculaHosts();
 			resultado[5] = "Numero de sub-redes: " + calculaSubRedes();
 			
-		}
+		}	
 		
+		if (cidr >= 25 || cidr < 31) {
+			
+		
+		}
 			
 		return resultado;
 	}
