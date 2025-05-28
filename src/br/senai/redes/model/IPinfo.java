@@ -12,7 +12,6 @@ public class IPinfo {
 	private String mascaraBinario = "";
 	private String[] octetos;
 
-
 	public void setIP(String IP) {
 		this.IP = IP;
 	}
@@ -194,6 +193,8 @@ public class IPinfo {
 		return subRedes;
 	}
 
+	
+	
 	public String retornaIpSemOctetoMisto() {
 
 		String ipComTresOctetos = "";
@@ -214,6 +215,18 @@ public class IPinfo {
 		
 		return octetoMistoMascaraDecimal;
 	}
+	
+	public int calculaSaltoSubRedes() {
+		
+		int salto;
+		int octetoMisto = retornaOctetoMistoMascaraDecimal();
+		
+		salto = 256 - octetoMisto;
+
+		
+		return salto;
+	}
+	
 
 	public String[] informaIps() {
 		
