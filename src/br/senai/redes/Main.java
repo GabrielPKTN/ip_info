@@ -15,6 +15,12 @@ public class Main {
 		
 		ip.setIP("192.168.1.0/27");
 		ip.separaIP();
+		ip.defineClasseIP();
+		ip.converteBinario();
+		ip.converteDecimal();
+		ip.calculaHosts();
+		ip.calculaSubRedes();
+		ip.resultadosConsole();
 		
 		
 		
