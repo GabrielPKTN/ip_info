@@ -13,7 +13,7 @@ public class Main {
 		
 		IPinfo ip = new IPinfo();
 		
-		ip.setIP("192.168.1.0/25");
+		ip.setIP("192.168.1.0/27");
 		ip.separaIP();
 		
 		

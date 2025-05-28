@@ -227,13 +227,38 @@ public class IPinfo {
 		return salto;
 	}
 	
-
 	public String[] informaIps() {
+		
+		String ipSemOctetoMisto = retornaIpSemOctetoMisto();
 		
 		String[] listaSubRedes = new String[subRedes];
 		
+		int salto = calculaSaltoSubRedes();
+		int contadorSalto = 0;
+		
+		int i=0;
+		while (i < subRedes) {
+			listaSubRedes[i] += ("IP da rede: " + ipSemOctetoMisto + contadorSalto);
+			
+			listaSubRedes[i] += (" Intervalo de IP's: (" + ipSemOctetoMisto + (contadorSalto + 1) + ") ~ (");
+			contadorSalto += salto;
+			
+			listaSubRedes[i] += (ipSemOctetoMisto + salto + ") ");
+			
+			listaSubRedes[i] += (" IP de broadcast: " + ipSemOctetoMisto + salto);
+			
+			i++;
+		}
+		
+		
 		return listaSubRedes;
 	}
+	
+	public void resultadosConsole() {
+		
+	}
+	
+	
 
 	public String[] resultados() {
 
