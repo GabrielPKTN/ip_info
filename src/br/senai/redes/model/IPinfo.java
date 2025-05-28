@@ -11,7 +11,7 @@ public class IPinfo {
 	private String mascaraDecimal = "";
 	private String mascaraBinario = "";
 	private String[] octetos;
-	private String ipComTresOctetos;
+
 
 	public void setIP(String IP) {
 		this.IP = IP;
@@ -201,28 +201,26 @@ public class IPinfo {
 		int i;
 		for (i = 0; i <= 2; i++) {
 			ipComTresOctetos += octetos[i] + ".";
-			
+
 		}
 		return ipComTresOctetos;
 	}
 
-//	public String[] informaIps() {
-//		
-//		
-//		String listaSubRedes = new String;
-//
-//			int quartoOctetoMascaraDecimal;
-//			
-//			String[] octetosMascaraDecimal = mascaraDecimal.split("\\.");
-//			
-//			quartoOctetoMascaraDecimal = Integer.valueOf(octetosMascaraDecimal[3]);
-//			
-//			int intervaloDeSubRede = (quartoOctetoMascaraDecimal - 2) / subRedes;
-//			
-//			return listaSubRedes;
-//		}
+	public int retornaOctetoMistoMascaraDecimal() {
+		
+		int octetoMistoMascaraDecimal;
+		String[] octetosMascaraDecimal = mascaraDecimal.split("\\.");			
+		octetoMistoMascaraDecimal = Integer.valueOf(octetosMascaraDecimal[3]);
+		
+		return octetoMistoMascaraDecimal;
+	}
 
-//	}
+	public String[] informaIps() {
+		
+		String[] listaSubRedes = new String[subRedes];
+		
+		return listaSubRedes;
+	}
 
 	public String[] resultados() {
 
