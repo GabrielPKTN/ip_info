@@ -11,7 +11,7 @@ public class IPinfo {
 	private String mascaraDecimal = "";
 	private String mascaraBinario = "";
 	private String[] octetos;
-	
+
 	private String[] listaSubRedes = new String[312];
 
 	public void setIP(String IP) {
@@ -195,8 +195,6 @@ public class IPinfo {
 		return subRedes;
 	}
 
-	
-	
 	public String retornaIpSemOctetoMisto() {
 
 		String ipComTresOctetos = "";
@@ -210,87 +208,107 @@ public class IPinfo {
 	}
 
 	public int retornaOctetoMistoMascaraDecimal() {
-		
+
 		int octetoMistoMascaraDecimal;
-		
-		String[] octetosMascaraDecimal = mascaraDecimal.split("\\.");			
+
+		String[] octetosMascaraDecimal = mascaraDecimal.split("\\.");
 		octetoMistoMascaraDecimal = Integer.valueOf(octetosMascaraDecimal[3]);
-		
+
 		return octetoMistoMascaraDecimal;
 	}
-	
+
 	public int calculaSaltoSubRedes() {
-		
+
 		int salto;
 		int octetoMisto = retornaOctetoMistoMascaraDecimal();
-		
+
 		salto = 256 - octetoMisto;
 
-		
 		return salto;
 	}
-	
+
 	public String[] informaSubRedes() {
-		
+
 		String ipSemOctetoMisto = retornaIpSemOctetoMisto();
-		
+
 //		String[] listaSubRedes = new String[subRedes];
-		
+
 		int salto = calculaSaltoSubRedes();
 		int contadorSalto = 0;
-		
-		int i=0;
+
+		int i = 0;
 		while (i < subRedes) {
-			this.listaSubRedes[i] = ("IP da rede: " + ipSemOctetoMisto + contadorSalto);
-			
-			this.listaSubRedes[i] += (" Intervalo de IP's: (" + ipSemOctetoMisto + (contadorSalto + 1) + ") ~ (");
-			contadorSalto += salto;
-			
-			this.listaSubRedes[i] += (ipSemOctetoMisto + salto + ") ");
-			
-			this.listaSubRedes[i] += (" IP de broadcast: " + ipSemOctetoMisto + salto);
-			
+
+			this.listaSubRedes[i] = ("IP da sub-rede: " + ipSemOctetoMisto + contadorSalto + "#");
+
+			if (cidr == 31) {
+
+				this.listaSubRedes[i] += ("Range de IP's de sub-redes disponiveis para uso: (" + ipSemOctetoMisto
+						+ (contadorSalto) + ") ~ (");
+				contadorSalto += 1;
+				this.listaSubRedes[i] += (ipSemOctetoMisto + contadorSalto + ")#");
+
+				this.listaSubRedes[i] += ("IP de broadcast: " + ipSemOctetoMisto + (contadorSalto));
+
+			} else {
+
+				this.listaSubRedes[i] += ("Range de IP's de sub-redes disponiveis para uso: (" + ipSemOctetoMisto
+						+ (contadorSalto + 1) + ") ~ (");
+				contadorSalto += salto;
+				this.listaSubRedes[i] += (ipSemOctetoMisto + (contadorSalto - 2) + ")#");
+
+				this.listaSubRedes[i] += ("IP de broadcast: " + ipSemOctetoMisto + (contadorSalto - 1));
+			}
+
 			i++;
+
 		}
-		
-		
 		return listaSubRedes;
 	}
-	
-	public void resultadosConsole() {
-		System.out.println("IP: " + IP);
-		System.out.println("Classe: " + classeIP);
-		System.out.println("Máscara em binário: " + mascaraBinario);
-		System.out.println("Máscara em decimal: " + mascaraDecimal);
-		System.out.println("IP´s disponíveis por rede: " + hosts);
-		System.out.println("Número de sub-redes: " + subRedes);
+
+//	public void resultadosConsole() {
+//		System.out.println("IP: " + IP);
+//		System.out.println("Classe: " + classeIP);
+//		System.out.println("Máscara em binário: " + mascaraBinario);
+//		System.out.println("Máscara em decimal: " + mascaraDecimal);
+//		System.out.println("IP´s disponíveis por rede: " + hosts);
+//		System.out.println("Número de sub-redes: " + subRedes);
 //		System.out.println("IP sem octeto misto: " + retornaIpSemOctetoMisto());
 //		System.out.println("Salto de uma sub-rede para outra: " + calculaSaltoSubRedes());
 //		System.out.println("Octeto misto da mascara decimal: " + retornaOctetoMistoMascaraDecimal());
-		
-		if (cidr > 24 || cidr < 32) {
-			
-			informaSubRedes();
-			
-			int i=0;
-			while (i < subRedes) {
-				System.out.println(listaSubRedes[i]);
-				i++;
-			}
-			
-		}
-		
-	}
-	
-	
+//		
+//		if (cidr > 24 || cidr < 32) {
+//			
+//			informaSubRedes();
+//			
+//			int i=0;
+//			while (i < subRedes) {
+//				
+//				int contadorInformacoesSubRede=0;
+//				String[] splitMensagemIpsSubRedes = listaSubRedes[i].split("#");
+//				System.out.println("==========================================================");
+//				System.out.println("ID de sub-rede: " + (i + 1));
+//				System.out.println("==========================================================");
+//				while (contadorInformacoesSubRede < splitMensagemIpsSubRedes.length) {
+//					System.out.println(splitMensagemIpsSubRedes[contadorInformacoesSubRede]);
+//					contadorInformacoesSubRede++;
+//				}
+//				System.out.println("========================================================== \n");
+//				
+//				i++;
+//			}
+//			
+//		}
+//		
+//	}
 
 	public String[] resultados() {
 
 		String[] resultado = new String[6];
 
-		if (cidr >= 25 || cidr < 31) {
+		if (cidr >= 25 && cidr < 31) {
 
-			resultado = new String[6 + subRedes];
+			resultado = new String[500];
 
 		}
 
@@ -310,10 +328,39 @@ public class IPinfo {
 			resultado[4] = "IP's disponiveis por rede: " + calculaHosts();
 			resultado[5] = "Numero de sub-redes: " + calculaSubRedes();
 
-		}
+			if (cidr > 24 && cidr < 32) {
 
-		if (cidr >= 25 || cidr < 31) {
+				informaSubRedes();
 
+				int contadorSubRedes = 0;
+				int i = 6;
+
+				while (contadorSubRedes < subRedes) {
+//					
+					int contadorInformacoesSubRede = 0;
+					String[] splitMensagemIpsSubRedes = listaSubRedes[contadorSubRedes].split("#");
+//					
+					resultado[i] = "=========================================================================";
+					i++;
+
+					resultado[i] = "ID de sub-rede: " + (contadorSubRedes + 1);
+					i++;
+
+					resultado[i] = "=========================================================================";
+					i++;
+
+					while (contadorInformacoesSubRede < splitMensagemIpsSubRedes.length) {
+						resultado[i] = splitMensagemIpsSubRedes[contadorInformacoesSubRede];
+						i++;
+						contadorInformacoesSubRede++;
+					}
+
+					contadorSubRedes++;
+					i++;
+				}
+				resultado[i] = "=========================================================================";
+				i++;
+			}
 		}
 
 		return resultado;

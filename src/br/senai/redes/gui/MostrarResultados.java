@@ -19,6 +19,8 @@ public class MostrarResultados {
 	private JButton buttonLimparIP;
 	
 	private JList<String> listInfoIP;
+	private JScrollPane scrollListaIP;
+	
 	private JLabel labelMensagemErro;
 	
 	private String nomeSistema;
@@ -52,7 +54,11 @@ public class MostrarResultados {
 		buttonLimparIP.setText("Limpar");
 		
 		listInfoIP = new JList<String>();
-		listInfoIP.setBounds(95, 120, 400, 200);
+//		listInfoIP.setBounds(95, 120, 400, 200);
+		
+		scrollListaIP = new JScrollPane(listInfoIP);
+		scrollListaIP.setBounds(10, 120, 560, 200);
+		
 		
 		Font estiloMensagemErro = new Font(null, Font.BOLD, 32);
 		
@@ -68,7 +74,7 @@ public class MostrarResultados {
 		container.add(textIP);
 		container.add(buttonIP);
 		container.add(buttonLimparIP);
-		container.add(listInfoIP);
+		container.add(scrollListaIP);
 		container.add(labelMensagemErro);
 		
 		buttonIP.addActionListener(new ActionListener() {
@@ -79,6 +85,7 @@ public class MostrarResultados {
 					
 					labelMensagemErro.setVisible(false);
 					listInfoIP.setVisible(true);
+					scrollListaIP.setVisible(true);
 					
 					String ipTextField = textIP.getText();
 					
@@ -98,6 +105,7 @@ public class MostrarResultados {
 					textIP.setText(null);
 					
 					listInfoIP.setVisible(false);
+					scrollListaIP.setVisible(false);
 					labelMensagemErro.setVisible(true);
 					
 				} catch (Exception e2) {
@@ -112,6 +120,7 @@ public class MostrarResultados {
 					textIP.setText(null);
 					
 					listInfoIP.setVisible(false);
+					scrollListaIP.setVisible(false);
 					labelMensagemErro.setVisible(true);
 				}
 			}
@@ -124,6 +133,7 @@ public class MostrarResultados {
 				
 				labelMensagemErro.setVisible(false);
 				listInfoIP.setVisible(true);
+				scrollListaIP.setVisible(true);
 				
 				String[] nullResultado = new String[0];
 				listInfoIP.setListData(nullResultado);
