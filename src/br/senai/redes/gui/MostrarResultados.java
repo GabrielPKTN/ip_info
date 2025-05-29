@@ -5,10 +5,11 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.*;
 
-import br.senai.redes.model.IPinfo;
+import br.senai.redes.model.EnderecoIP;
 
 public class MostrarResultados {
 	
@@ -57,7 +58,7 @@ public class MostrarResultados {
 //		listInfoIP.setBounds(95, 120, 400, 200);
 		
 		scrollListaIP = new JScrollPane(listInfoIP);
-		scrollListaIP.setBounds(10, 120, 560, 200);
+		scrollListaIP.setBounds(10, 120, 565, 200);
 		
 		
 		Font estiloMensagemErro = new Font(null, Font.BOLD, 32);
@@ -89,12 +90,73 @@ public class MostrarResultados {
 					
 					String ipTextField = textIP.getText();
 					
-					IPinfo ip = new IPinfo();
+					EnderecoIP ip = new EnderecoIP();
 					ip.setIP(ipTextField);
 					ip.separaIP();					
 					
-					String[] IPinfoResult = ip.resultados();
-					listInfoIP.setListData(IPinfoResult);
+//					String[] IPinfoResult = ip.resultados();
+//					listInfoIP.setListData(IPinfoResult);
+					
+					/*
+					 * Bora la, para não se perder..
+					 * 
+					 * List<String> IPinfoResult = ip.resultados();
+					 * 
+					 * Como alterei o tipo de retorno na classe pricipal
+					 * no método resultados(), aqui não vai ser diferente
+					 * então aqui tenho uma lista que recebe o retorno de
+					 * resultados, que é uma lista (list<String>).
+					 * 
+					 * Basicamente estou "Copiando" a lista resultados do
+					 * método resultados() da classe IPinfo.
+					 * 
+					 * DefaultListModel<String> model = new DefaultListModel<>();
+					 * 
+					 * Primeiro o que é DefaultListModel?
+					 *  
+					 * É uma implementação padrão de ListModel usada com JList
+					 * no Swing.
+					 * 
+					 * O que consigo fazer com isso?
+					 * 
+					 * Controlar os dados exibidos pelo JList de forma flexível,
+					 * ou seja:
+					 * 
+					 * Adicionar itens dinamicamente | addElement()
+					 * Remover itens                 | removeElementAt()
+					 * Atualizar elementos           | setElementAt()
+					 * Consultar conteúdo            | getElementAt(), getSize(), etc.
+					 * 
+					 * Por que devo utilizar DefaultListModel?
+					 * 
+					 * Por padrão, o JList usa um ListModel para saber quais itens 
+					 * exibir. Se você quiser modificar esses itens em tempo de execução 
+					 * (por exemplo, após um clique no botão),  precisa usar um modelo 
+					 * que permita edição — como o DefaultListModel.
+					 * 
+					 * */
+					
+					List<String> IPinfoResult = ip.resultados();
+					
+					DefaultListModel<String> model = new DefaultListModel<>();
+					
+					// bloco recebe String com informações das sub redes
+					for (String bloco : IPinfoResult) {
+						// quebra cada string em várias linhas que se separam pelos \n
+						String[] linhas = bloco.split("\n");
+						
+						/*
+						 * Dentro desse for-each sabemos que linhas recebeu todas as
+						 * linhas separadas pelos \n, agora pegamos cada linha dessa 
+						 * e adicionamos ao model (JList) uma linha de cada vez.
+						 */
+						for (String linha : linhas) {
+							model.addElement(linha);
+						}
+					}
+					
+					// Aplicamos o modelo no JList
+					listInfoIP.setModel(model);
 					
 					
 				} catch (ArrayIndexOutOfBoundsException exception) {
