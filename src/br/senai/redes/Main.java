@@ -1,7 +1,7 @@
 package br.senai.redes;
 
 import br.senai.redes.gui.MostrarResultados;
-import br.senai.redes.model.EnderecoIP;
+//import br.senai.redes.model.EnderecoIP;
 
 
 public class Main {
@@ -11,8 +11,8 @@ public class Main {
 		MostrarResultados tela = new MostrarResultados();
 		tela.criaTela("IP Info");
 		
-//		IPinfo ip = new IPinfo();	
-//		ip.setIP("192.168.1.0/27");
+//		EnderecoIP ip = new EnderecoIP();	
+//		ip.setIP("192.168.1.0/36");
 //		ip.separaIP();
 //		ip.defineClasseIP();
 //		ip.converteBinario();

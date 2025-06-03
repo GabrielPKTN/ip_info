@@ -28,7 +28,7 @@ public class EnderecoIP {
 
 		String[] splitIP = IP.split("/");
 		cidr = Integer.valueOf(splitIP[1]);
-		if (cidr < 33 && cidr > -1) {
+		if (cidr < 41 && cidr > -1) {
 			this.cidr = cidr;
 		}
 
@@ -59,7 +59,7 @@ public class EnderecoIP {
 
 		} else if (primeiroOcteto > 239 && primeiroOcteto <= 255) {
 			classeIP = "Classe E (Reservada)";
-
+			
 		}
 
 		return classeIP;
@@ -70,14 +70,16 @@ public class EnderecoIP {
 	public String converteBinario() {
 		int contador = 0;
 		int octeto = 0;
-		while (contador < cidr) {
+		while (contador < cidr && contador < 32) {
 
 			mascaraBinario += "1";
 			octeto++;
 			contador++;
 
 			if (octeto == 8) {
-				mascaraBinario += ".";
+				if (mascaraBinario.length() < 35) {
+					mascaraBinario += ".";
+				}
 				octeto = 0;
 			}
 
@@ -459,13 +461,13 @@ public class EnderecoIP {
 		} else {
 			 resultado.add("Máscara em binário: " + converteBinario());
 		     resultado.add("Máscara em decimal: " + converteDecimal());
-		     resultado.add("IPs disponíveis por sub-rede: " + calculaHosts());
+		     resultado.add("IPs disponíveis por rede: " + calculaHosts());
 		     resultado.add("Número de sub-redes: " + calculaSubRedes());
 		     
 		     
 		     // Caso o CIDR for de 25 a 31
 		     
-		     if (cidr > 24 && cidr < 32) {
+		     if (cidr > 24 && cidr < 31) {
 		    	 
 		    	 /*
 		    	  * Aqui estamos falando que a lista subRedesFormatadas
